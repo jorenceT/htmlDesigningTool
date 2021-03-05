@@ -1,0 +1,19 @@
+<div>
+  <div class="click-me">
+    <button (click)="setControl('input')">input</button>
+    <button (click)="setControl('button')">button</button>
+    <button (click)="setControl('div')">layout</button>
+    <button (click)="clearControl()">clear</button>
+  </div>
+  <div
+    class="full-width"
+    (click)="getPoint($event)"
+    (mousemove)="mosemoved($event)"
+  >
+    <div class="inner-html" #canvas></div>
+    <div #suppotiveLins>
+      <div class="supportVerticalLines" #verticalLine></div>
+      <div class="supportHorizondalLines" #horizondalLine></div>
+    </div>
+  </div>
+</div>

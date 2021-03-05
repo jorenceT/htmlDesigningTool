@@ -1,0 +1,78 @@
+import {
+  Component,
+  ElementRef,
+  Renderer2,
+  VERSION,
+  ViewChild
+} from "@angular/core";
+
+@Component({
+  selector: "my-app",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"]
+})
+export class AppComponent {
+  name = "Angular " + VERSION.major;
+  @ViewChild("canvas") canvas: ElementRef;
+  @ViewChild("suppotiveLins") suppotiveLins: ElementRef;
+  @ViewChild("verticalLine") verticalLine: ElementRef;
+  @ViewChild("horizondalLine") horizondalLine: ElementRef;
+  controlToCreate = "";
+
+  constructor(private element: ElementRef, private renderer: Renderer2) {}
+
+  getPoint(event: any) {
+    if (!this.controlToCreate) {
+      return;
+    }
+    var x = event.clientX;
+    var y = event.clientY;
+    this.createElement(x, y);
+    var coor = "X coords: " + x + ", Y coords: " + y;
+    console.log(coor);
+  }
+  setControl(control: string) {
+    if (control === this.controlToCreate) {
+      this.controlToCreate = null;
+      return;
+    }
+    this.controlToCreate = control;
+    console.log(this.controlToCreate);
+  }
+  createElement(x, y) {
+    let tempName;
+    var el = this.renderer.createElement(this.controlToCreate);
+    this.renderer.setStyle(el, "position", "absolute");
+    this.renderer.setStyle(el, "top", `${y}px`);
+    this.renderer.setStyle(el, "left", `${x}px`);
+    if (this.controlToCreate === "button") {
+      tempName = prompt("Enter the text to display");
+      el.innerText = tempName || "sample";
+    } else if (this.controlToCreate === "input") {
+      tempName = prompt("Enter the placeholder");
+      this.renderer.setAttribute(el, "placeholder", tempName || "text");
+    }
+    this.canvas.nativeElement.appendChild(el);
+  }
+
+  mosemoved(event: any) {
+    var x = event.clientX;
+    var y = event.clientY;
+    var vrEl = this.verticalLine.nativeElement;
+    this.renderer.setStyle(vrEl, "position", "absolute");
+    this.renderer.setStyle(vrEl, "left", `${x}px`);
+    this.suppotiveLins.nativeElement.appendChild(vrEl);
+
+    var hrEl = this.horizondalLine.nativeElement;
+    this.renderer.setStyle(hrEl, "position", "absolute");
+    this.renderer.setStyle(hrEl, "top", `${y}px`);
+    this.suppotiveLins.nativeElement.appendChild(hrEl);
+
+    var coor = "X coords: " + x + ", Y coords: " + y;
+    console.log(coor);
+  }
+
+  clearControl() {
+    this.canvas.nativeElement.innerHTML = "";
+  }
+}

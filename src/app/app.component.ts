@@ -23,7 +23,7 @@ export class AppComponent {
   @ViewChild("clear") clear: ElementRef;
   controlToCreate = "";
 
-  constructor(private element: ElementRef, private renderer: Renderer2) {}
+  constructor(private element: ElementRef, private renderer: Renderer2) { }
 
   getPoint(event: any) {
     if (!this.controlToCreate) {
@@ -90,7 +90,7 @@ export class AppComponent {
     var control = this[control].nativeElement;
     this.renderer.setStyle(control, "background-color", "revert");
   }
-
+  /** clear */
   clearControl() {
     this.canvas.nativeElement.innerHTML = "";
   }

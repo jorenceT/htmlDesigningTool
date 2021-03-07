@@ -17,6 +17,10 @@ export class AppComponent {
   @ViewChild("suppotiveLins") suppotiveLins: ElementRef;
   @ViewChild("verticalLine") verticalLine: ElementRef;
   @ViewChild("horizondalLine") horizondalLine: ElementRef;
+  @ViewChild("input") input: ElementRef;
+  @ViewChild("button") button: ElementRef;
+  @ViewChild("layout") layout: ElementRef;
+  @ViewChild("clear") clear: ElementRef;
   controlToCreate = "";
 
   constructor(private element: ElementRef, private renderer: Renderer2) {}
@@ -34,8 +38,10 @@ export class AppComponent {
   setControl(control: string) {
     if (control === this.controlToCreate) {
       this.controlToCreate = null;
+      this.removeActive(control);
       return;
     }
+    this.setControlActive(control);
     this.controlToCreate = control;
     console.log(this.controlToCreate);
   }
@@ -60,7 +66,7 @@ export class AppComponent {
     var y = event.clientY;
     var vrEl = this.verticalLine.nativeElement;
     this.renderer.setStyle(vrEl, "position", "absolute");
-    this.renderer.setStyle(vrEl, "left", `${x}px`);
+    this.renderer.setStyle(vrEl, "left", `${x + 3}px`);
     this.suppotiveLins.nativeElement.appendChild(vrEl);
 
     var hrEl = this.horizondalLine.nativeElement;
@@ -70,6 +76,16 @@ export class AppComponent {
 
     var coor = "X coords: " + x + ", Y coords: " + y;
     console.log(coor);
+  }
+
+  setControlActive(control: string) {
+    var control = this[control].nativeElement;
+    this.renderer.setStyle(control, "background-color", "gray");
+  }
+
+  removeActive(control: string) {
+    var control = this[control].nativeElement;
+    this.renderer.setStyle(control, "background-color", "revert");
   }
 
   clearControl() {

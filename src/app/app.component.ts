@@ -85,7 +85,7 @@ export class AppComponent {
     var control = this[control].nativeElement;
     this.renderer.setStyle(control, "background-color", "gray");
   }
-
+/** remove active style */
   removeActive(control: string) {
     var control = this[control].nativeElement;
     this.renderer.setStyle(control, "background-color", "revert");

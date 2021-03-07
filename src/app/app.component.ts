@@ -79,6 +79,9 @@ export class AppComponent {
   }
 
   setControlActive(control: string) {
+    if (this.controlToCreate) {
+      this.removeActive(this.controlToCreate);
+    }
     var control = this[control].nativeElement;
     this.renderer.setStyle(control, "background-color", "gray");
   }

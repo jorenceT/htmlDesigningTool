@@ -77,7 +77,7 @@ export class AppComponent {
     var coor = "X coords: " + x + ", Y coords: " + y;
     console.log(coor);
   }
-
+  /** set active style */
   setControlActive(control: string) {
     if (this.controlToCreate) {
       this.removeActive(this.controlToCreate);
@@ -85,7 +85,7 @@ export class AppComponent {
     var control = this[control].nativeElement;
     this.renderer.setStyle(control, "background-color", "gray");
   }
-/** remove active style */
+  /** remove active style */
   removeActive(control: string) {
     var control = this[control].nativeElement;
     this.renderer.setStyle(control, "background-color", "revert");
